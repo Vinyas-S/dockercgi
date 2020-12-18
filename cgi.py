@@ -1,32 +1,22 @@
-#!/usr/bin/python3
-print("content-type:text/html")
-print()
+#!/usr/bin/python/
+print("content-type: text/html"\n)
 
-import subprocess as sub
 import cgi
+import subprocess as sp
 
-dont = ["do not","don't","dont","nothing"]
+y=cgi.FieldStorage()
+osname=y.getvalue("x")
 
-y = cgi.FieldStorage()
-p = y.getvalue("x").lower()
+print(osname)
+cmd="sudo docker run -i -t --name {0} ubuntu".format(osname)
 
-if any(ele in p for ele in dont) :
-print("Please don't play with me")
+output=sp.getstatusoutput(cmd)
 
-elif not(any(ele in p for ele in dont)) and (("calendar" in p)):
-print(sub.getstatusoutput("cal")[1])
 
-elif not(any(ele in p for ele in dont)) and (("date" in p) or ("time" in p)):
-print(sub.getstatusoutput("date")[1])
+status=output[0]
+out=output[1]
 
-elif (p==""):
-print("Sorry... But I haven't received any input from you!!!")
-
-elif ("hello" in p) or ("hi" in p) or ("hey" in p):
-print("Hello, I hope it's goning great")
-
-elif ("thank" in p):
-print("It's my pleasure")
-
-else:
-print("Sorry...Try it again....")
+if status==0 :
+ print("ur { } has been launched".format(osname))
+else :
+ print("ther is an error {}".format(out))
