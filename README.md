@@ -1,3 +1,3 @@
 # dockercgi
-Running some daily linux cli commands using cgi login
+Running a docker os from a cgi login
 Launching docker machines
